@@ -1,6 +1,6 @@
 # GitHub 소스·APK 공개 준비
 
-공개 방식은 MIT 소스 + 서명된 APK입니다. 현재 단계는 준비와 Android Studio Run 검증이며 APK 생성·GitHub 업로드는 최종 완료 후 진행합니다.
+공개 방식은 MIT 소스 + 서명된 APK입니다. 공개 소스 저장소는 [jasonok467570/FoldPod](https://github.com/jasonok467570/FoldPod)입니다. 현재 소스를 먼저 공개하며, 배포 APK 생성·업로드는 release 인증서와 로그인 검증 후 진행합니다.
 
 ## 공개할 자료
 
@@ -38,4 +38,4 @@ Google Android OAuth에는 `com.foldpod.app`와 **release 인증서의 SHA-1**�
 
 Debug와 release의 서명이 다르면 기존 앱을 그대로 업데이트할 수 없습니다. 설치 충돌을 해결하려고 기존 앱이나 사용자 데이터를 자동 삭제하지 마세요. 릴리스 검증용 별도 기기·설치 계획을 먼저 정합니다.
 
-현재 버전은 `versionCode=8`, `versionName=0.7.1`이며 실제 배포 직전에 기존 공개 버전과 비교해 결정합니다. GitHub 원격 저장소와 최초 commit/push는 아직 수행하지 않았습니다. Spotify 공개 접근 제한은 [SPOTIFY_RELEASE.md](SPOTIFY_RELEASE.md)를 따릅니다.
+현재 버전은 `versionCode=8`, `versionName=0.7.1`이며 APK 배포 직전에 기존 공개 버전과 비교해 결정합니다. 공개 기록에는 GitHub noreply 이메일을 사용합니다. 원래 개인 이메일이 들어 있는 로컬 `main`은 보존하되 업로드하지 않습니다. 공개용 로컬 `public-source` 브랜치를 GitHub의 `main`으로 업로드합니다. 이후에도 공개 브랜치만 push하고 개인 이메일이 들어 있는 로컬 기록을 병합하거나 `--all`로 push하지 마세요. Spotify 공개 접근 제한은 [SPOTIFY_RELEASE.md](SPOTIFY_RELEASE.md)를 따릅니다.

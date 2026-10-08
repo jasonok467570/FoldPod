@@ -2,6 +2,8 @@
 
 Galaxy Z Fold 커버 화면을 위한 Click Wheel 음악 컨트롤러입니다. 현재 앱 버전은 0.7.1이며 음악은 Spotify·YouTube Music 등의 재생 앱에서 재생합니다.
 
+공개 소스: [jasonok467570/FoldPod](https://github.com/jasonok467570/FoldPod). MIT 라이선스를 적용합니다. 서명된 배포 APK는 release 인증서·로그인 검증이 끝난 뒤 GitHub Releases에 제공할 예정입니다.
+
 ## 사용 방법
 
 1. Android Studio에서 프로젝트를 열고 SDK 37 및 JDK 17을 준비합니다.
@@ -11,6 +13,8 @@ Galaxy Z Fold 커버 화면을 위한 Click Wheel 음악 컨트롤러입니다. 
 5. `Playlists → Spotify / YouTube Music → 재생목록`에서 곡을 선택합니다. Spotify 재생에는 Premium과 사용자가 확인한 재생 기기가 필요합니다.
 
 현재 검증은 Android Studio Run으로 진행합니다. 배포용 APK는 최종 검증 후 별도로 생성합니다. 최소 Android 버전은 8.1(API 27)입니다.
+
+소스를 직접 빌드한다면 빌드에 사용한 인증서 SHA-1과 `com.foldpod.app`에 맞는 Google Android OAuth 등록이 필요합니다. 기존 개발자의 debug 인증서 등록은 다른 컴퓨터에서 만든 debug 빌드에 적용되지 않습니다. 독립적인 서비스 설정과 현재 접근 제한은 [RELEASE.md](RELEASE.md) 및 [SPOTIFY_RELEASE.md](SPOTIFY_RELEASE.md)를 확인하세요.
 
 ## 기능
 
