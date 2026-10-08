@@ -23,6 +23,7 @@ android {
         targetSdk = 37
         versionCode = 8
         versionName = "0.7.1"
+        manifestPlaceholders["appLabel"] = "FoldPod"
     }
 
     buildFeatures {
@@ -52,6 +53,9 @@ android {
         }
 
         release {
+            // Keep the signed public app separate from existing Android Studio installs.
+            applicationIdSuffix = ".release"
+            manifestPlaceholders["appLabel"] = "FoldPod Release"
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
