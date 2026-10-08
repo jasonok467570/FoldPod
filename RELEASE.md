@@ -1,6 +1,6 @@
 # GitHub 소스·APK 배포
 
-공개 방식은 MIT 소스 + 서명된 APK입니다. 공개 소스 저장소는 [jasonok467570/FoldPod](https://github.com/jasonok467570/FoldPod)이며 APK는 실제 휴대폰 검증 후 [GitHub Releases](https://github.com/jasonok467570/FoldPod/releases)에 제공합니다. 0.7.1은 Beta(Pre-release)로 준비합니다. Spotify 개발 모드 허용 사용자와 Google OAuth 테스트 계정 제한을 유지하므로 모든 계정의 서비스 연결이 가능한 정식 출시로 해석하지 마세요.
+공개 방식은 MIT 소스 + 서명된 APK입니다. 공개 소스 저장소는 [jasonok467570/FoldPod](https://github.com/jasonok467570/FoldPod)이며 APK와 SHA-256 체크섬은 [0.7.1 Beta Release](https://github.com/jasonok467570/FoldPod/releases/tag/v0.7.1)에서 제공합니다. 0.7.1은 Beta(Pre-release)입니다. Spotify 개발 모드 허용 사용자와 Google OAuth 테스트 계정 제한을 유지하므로 모든 계정의 서비스 연결이 가능한 정식 출시로 해석하지 마세요.
 
 ## 공개할 자료
 
@@ -28,21 +28,19 @@ git check-ignore -- keystore.properties signing/foldpod-release.jks local.proper
 
 Google Android OAuth에는 `com.foldpod.app.release`와 **release 인증서의 SHA-1**에 대응하는 등록이 필요합니다. 2026-10-08 이 조합의 Android 클라이언트 등록을 완료했습니다. Debug 인증서에서 성공한 로그인은 release 로그인의 검증이 아닙니다. Google OAuth는 현재 테스트 모드입니다. 일반 사용자 공개 설정·민감 범위 검토는 별도 확인 대상으로 남습니다. [Google 사용자 데이터 승인](https://developer.android.com/identity/authorization), [민감 범위 검증](https://developers.google.com/identity/protocols/oauth2/production-readiness/sensitive-scope-verification).
 
-## 최종 확인 순서
+## 0.7.1 검증 범위
 
-2026-10-08 release 후보에서 서명 검증(APK Signature Scheme v2), `com.foldpod.app.release` 패키지·FoldPod Release 표시 이름, non-debuggable 설정과 개인 키·토큰 패턴 제외 검사를 통과했습니다. 실제 휴대폰에 기존 debug 앱을 보존한 채 별도로 설치했습니다. 로그인 완료는 사용자가 보고했으며, Connections 상태·재시작 복구의 최종 확인과 GitHub APK 업로드는 아직 진행 중입니다. 다른 계정·기기의 동작 검증은 미완료입니다.
+2026-10-08 서명된 release 빌드에서 APK Signature Scheme v2, `com.foldpod.app.release` 패키지·FoldPod Release 표시 이름, non-debuggable 설정과 소스·APK의 개인 키·토큰 패턴 제외 검사를 통과했습니다. 실제 Samsung SM-F971N(Android API 37)에 기존 debug 앱을 보존한 채 별도로 설치했고, 설치된 APK와 배포 후보의 SHA-256 일치를 확인했습니다. 사용자는 Spotify·Google 로그인 완료와 앱 업데이트 후 Connect를 다시 누르지 않아도 두 서비스가 연결되어 있음을 확인했습니다. 이 로그인·복구 결과는 사용자 확인에 근거합니다. 다른 계정·기기의 연결과 release에서의 전체 재생 기능 회귀 검증은 미완료입니다.
+
+최종 문서 commit으로 APK의 VCS metadata를 갱신할 때에는 검증한 빌드와 실행 코드·리소스가 동일한지 비교합니다. APK 자체의 SHA-256은 Release에 첨부한 `SHA256SUMS.txt`를 따르며, 아래 인증서 지문과는 다른 값입니다.
 
 Release 인증서 공개 지문(개인 키가 아님):
 
 - SHA-1: `A5:FB:A4:58:44:BD:A6:E1:48:C0:57:6F:48:80:96:4C:08:0E:DB:14`
 - SHA-256: `1C:B1:7F:11:61:91:98:50:1A:A7:A4:1B:FE:F6:BE:12:5F:E5:6E:95:3A:EA:7C:51:F6:4F:44:21:1D:A4:F2:29`
 
-1. Android Studio Run으로 재시작 후 두 서비스 연결 복구, 수동 Disconnect 유지, 곡 선택·Next·SEEK·즐겨찾기를 실제 휴대폰에서 확인
-2. 다른 사용자가 자기 계정으로 로그인하는 테스트. Spotify는 개발 모드 허용 사용자, Google은 현재 OAuth 게시 상태에 맞는 사용자로 확인
-3. release 인증서 OAuth 등록, 버전 확정, 공개 문서·민감 정보 검사
-4. 이후 승인된 시점에 서명 APK 생성, release 설치·로그인·동작 확인, APK 인증서와 SHA-256 확인
-5. 공개할 GitHub 저장소와 원격 주소 확정, 선택한 소스 commit/push, GitHub Release 작성 및 APK 첨부
+후속 검증에는 허용된 다른 사용자의 본인 계정 로그인, 다른 기기, release에서 곡 선택·Next·SEEK·즐겨찾기·수동 Disconnect 유지 확인을 포함합니다. 자동화 검사 통과를 이 동작들의 실기기 검증으로 대신하지 않습니다.
 
 공개 release는 `applicationIdSuffix = ".release"`를 사용해 `com.foldpod.app.release`로 설치하며 표시 이름은 **FoldPod Release**입니다. Android Studio debug 앱(`com.foldpod.app`, FoldPod)과 함께 설치되어 기존 앱의 로그인·설정·즐겨찾기를 보존합니다. 두 앱의 데이터는 분리되고 자동 복사하지 않으므로 release에서는 처음 한 번 알림 접근과 계정 연결을 다시 허용해야 합니다. 이후 release 업데이트는 같은 패키지와 서명 키를 유지합니다. 두 앱에서 Spotify Connect를 동시에 시작하면 동일한 loopback port(8888)가 충돌할 수 있으므로 순서대로 연결합니다. 기존 앱이나 사용자 데이터를 자동 삭제하지 마세요.
 
-현재 버전은 `versionCode=8`, `versionName=0.7.1`이며 APK 배포 직전에 기존 공개 버전과 비교해 결정합니다. 공개 기록에는 GitHub noreply 이메일을 사용합니다. 원래 개인 이메일이 들어 있는 로컬 `main`은 보존하되 업로드하지 않습니다. 공개용 로컬 `public-source` 브랜치를 GitHub의 `main`으로 업로드합니다. 이후에도 공개 브랜치만 push하고 개인 이메일이 들어 있는 로컬 기록을 병합하거나 `--all`로 push하지 마세요. Spotify 공개 접근 제한은 [SPOTIFY_RELEASE.md](SPOTIFY_RELEASE.md)를 따릅니다.
+공개 버전은 `versionCode=8`, `versionName=0.7.1`입니다. 다음 APK 업데이트는 versionCode를 증가시키고 같은 release 패키지·키를 유지합니다. 공개 기록에는 GitHub noreply 이메일을 사용합니다. 원래 개인 이메일이 들어 있는 로컬 `main`은 보존하되 업로드하지 않습니다. 공개용 로컬 `public-source` 브랜치를 GitHub의 `main`으로 업로드합니다. 이후에도 공개 브랜치만 push하고 개인 이메일이 들어 있는 로컬 기록을 병합하거나 `--all`로 push하지 마세요. Spotify 공개 접근 제한은 [SPOTIFY_RELEASE.md](SPOTIFY_RELEASE.md)를 따릅니다.
